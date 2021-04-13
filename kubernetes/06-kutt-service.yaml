@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: kutt
+  name: kutt
+spec:
+  ports:
+    - name: "3000"
+      port: 80
+      targetPort: 3000
+  selector:
+    io.kompose.service: kutt
+status:
+  loadBalancer: {}

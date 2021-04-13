@@ -1,0 +1,215 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (955b78124)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: kutt
+  name: kutt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: kutt
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.22.0 (955b78124)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: kutt
+    spec:
+      containers:
+        - args:
+            - ./wait-for-it.sh
+            - postgres:5432
+            - --
+            - npm
+            - start
+          env:
+            - name: ADMIN_EMAILS
+              valueFrom:
+                configMapKeyRef:
+                  key: ADMIN_EMAILS
+                  name: env
+            - name: CONTACT_EMAIL
+              valueFrom:
+                configMapKeyRef:
+                  key: CONTACT_EMAIL
+                  name: env
+            - name: CUSTOM_DOMAIN_USE_HTTPS
+              valueFrom:
+                configMapKeyRef:
+                  key: CUSTOM_DOMAIN_USE_HTTPS
+                  name: env
+            - name: DB_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_HOST
+                  name: env
+            - name: DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_NAME
+                  name: env
+            - name: DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_PASSWORD
+                  name: env
+            - name: DB_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_PORT
+                  name: env
+            - name: DB_SSL
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_SSL
+                  name: env
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: DB_USER
+                  name: env
+            - name: DEFAULT_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  key: DEFAULT_DOMAIN
+                  name: env
+            - name: DEFAULT_MAX_STATS_PER_LINK
+              valueFrom:
+                configMapKeyRef:
+                  key: DEFAULT_MAX_STATS_PER_LINK
+                  name: env
+            - name: DISALLOW_ANONYMOUS_LINKS
+              valueFrom:
+                configMapKeyRef:
+                  key: DISALLOW_ANONYMOUS_LINKS
+                  name: env
+            - name: DISALLOW_REGISTRATION
+              valueFrom:
+                configMapKeyRef:
+                  key: DISALLOW_REGISTRATION
+                  name: env
+            - name: GOOGLE_ANALYTICS
+              valueFrom:
+                configMapKeyRef:
+                  key: GOOGLE_ANALYTICS
+                  name: env
+            - name: GOOGLE_ANALYTICS_UNIVERSAL
+              valueFrom:
+                configMapKeyRef:
+                  key: GOOGLE_ANALYTICS_UNIVERSAL
+                  name: env
+            - name: GOOGLE_SAFE_BROWSING_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: GOOGLE_SAFE_BROWSING_KEY
+                  name: env
+            - name: JWT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: JWT_SECRET
+                  name: env
+            - name: LINK_LENGTH
+              valueFrom:
+                configMapKeyRef:
+                  key: LINK_LENGTH
+                  name: env
+            - name: MAIL_FROM
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_FROM
+                  name: env
+            - name: MAIL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_HOST
+                  name: env
+            - name: MAIL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_PASSWORD
+                  name: env
+            - name: MAIL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_PORT
+                  name: env
+            - name: MAIL_SECURE
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_SECURE
+                  name: env
+            - name: MAIL_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: MAIL_USER
+                  name: env
+            - name: NEO4J_DB_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: NEO4J_DB_PASSWORD
+                  name: env
+            - name: NEO4J_DB_URI
+              valueFrom:
+                configMapKeyRef:
+                  key: NEO4J_DB_URI
+                  name: env
+            - name: NEO4J_DB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: NEO4J_DB_USERNAME
+                  name: env
+            - name: NON_USER_COOLDOWN
+              valueFrom:
+                configMapKeyRef:
+                  key: NON_USER_COOLDOWN
+                  name: env
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: PORT
+                  name: env
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_HOST
+                  name: env
+            - name: REDIS_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_PASSWORD
+                  name: env
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_PORT
+                  name: env
+            - name: REPORT_EMAIL
+              valueFrom:
+                configMapKeyRef:
+                  key: REPORT_EMAIL
+                  name: env
+            - name: SITE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SITE_NAME
+                  name: env
+            - name: USER_LIMIT_PER_DAY
+              valueFrom:
+                configMapKeyRef:
+                  key: USER_LIMIT_PER_DAY
+                  name: env
+          image: kutt/kutt
+          name: kutt
+          ports:
+            - containerPort: 3000
+          resources: {}
+      restartPolicy: Always
+status: {}
